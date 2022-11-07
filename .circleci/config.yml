@@ -1,0 +1,21 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    environment:
+      clientId: $AUTH0_CLIENTID
+      clientSecret: $AUTH0_CLIENTSECRET
+      domain: $AUTH0_DOMAIN 
+      audience: $AUTH0_AUDIENCE
+    steps:
+      - checkout
+      - run: |
+          cd dotnet/src/HonkService.Tests
+          dotnet test HonkService.Tests.csproj
+
+workflows:
+  test_and_build:
+    jobs:
+      - test
