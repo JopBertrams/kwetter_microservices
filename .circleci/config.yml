@@ -9,8 +9,19 @@ jobs:
       - run: |
           cd dotnet/src/HonkService.Tests
           dotnet test HonkService.Tests.csproj
+  build:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+      - run: |
+          cd dotnet/src/HonkService.Api
+          dotnet build -c Release
 
 workflows:
   test_and_build:
     jobs:
       - test
+      - build:
+          requires:
+            - test
