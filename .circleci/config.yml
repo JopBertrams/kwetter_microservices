@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run: |
           cd dotnet/src/HonkService.Tests
-          dotnet test .\HonkService.Tests.csproj
+          dotnet test HonkService.Tests.csproj
 
 workflows:
   test_and_build:
