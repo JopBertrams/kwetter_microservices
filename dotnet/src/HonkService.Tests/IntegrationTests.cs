@@ -49,10 +49,10 @@ namespace HonkService.Tests
 
             AddHonksToDatabase();
 
-            clientId = Environment.GetEnvironmentVariable("CLIENT_ID");
-            clientSecret = Environment.GetEnvironmentVariable("CLIENT_SECRET");
-            domain = Environment.GetEnvironmentVariable("DOMAIN");
-            audience = Environment.GetEnvironmentVariable("AUDIENCE");
+            clientId = Environment.GetEnvironmentVariable("AUTH0_CLIENTID");
+            clientSecret = Environment.GetEnvironmentVariable("AUTH0_CLIENTSECRET");
+            domain = Environment.GetEnvironmentVariable("AUTH0_DOMAIN");
+            audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE");
         }
 
         private void AddHonksToDatabase()
