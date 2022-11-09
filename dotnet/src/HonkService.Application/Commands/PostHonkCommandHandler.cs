@@ -4,18 +4,28 @@ using HonkService.Domain;
 using Mapster;
 using MediatR;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
+using System.Text;
 
 namespace HonkService.Application.Commands
 {
     public class PostHonkCommandHandler : IRequestHandler<PostHonkCommand, HonkResult>
     {
         private readonly IHonkRepository _honkRepository;
-        private readonly Plain.RabbitMQ.IPublisher _publisher;
+        private readonly IConnection _connection;
+        private readonly IModel _channel;
 
-        public PostHonkCommandHandler(IHonkRepository honkRepository, Plain.RabbitMQ.IPublisher publisher)
+        public PostHonkCommandHandler(IHonkRepository honkRepository)
         {
             _honkRepository = honkRepository ?? throw new ArgumentNullException(nameof(honkRepository));
-            _publisher = publisher;
+
+            var factory = new ConnectionFactory
+            {
+                Uri = new Uri("amqps://gzzpbcle:b4SqtWxK0tLpbeFa7roTWnkT4bfxmQBm@sparrow.rmq.cloudamqp.com/gzzpbcle")
+            };
+            _connection = factory.CreateConnection();
+            _channel = _connection.CreateModel();
+            _channel.QueueDeclare("honk_queue", true, false, false, null);
         }
 
         public async Task<HonkResult> Handle(PostHonkCommand command, CancellationToken cancellationToken)
@@ -26,7 +36,10 @@ namespace HonkService.Application.Commands
             await _honkRepository.AddAsync(honkEntity);
 
             //Publish to RabbitMQ
-            _publisher.Publish(JsonConvert.SerializeObject(honkEntity), "timeline", null);
+            var serializedString = JsonConvert.SerializeObject(honkEntity);
+            var body = Encoding.UTF8.GetBytes(serializedString);
+            _channel.BasicPublish("honk_exchange", "timeline", false, null, body);
+
 
             return honkEntity.Adapt<HonkResult>();
         }
