@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using MediatR;
+using Plain.RabbitMQ;
+using RabbitMQ.Client;
 
 namespace HonkService.Application
 {
@@ -31,7 +33,11 @@ namespace HonkService.Application
                 options.AddPolicy("write:honks", policy => policy.Requirements.Add(new HasScopeRequirement("write:honks", domain)));
             });
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-            
+            services.AddSingleton<IConnectionProvider>(new ConnectionProvider("amqps://gzzpbcle:b4SqtWxK0tLpbeFa7roTWnkT4bfxmQBm@sparrow.rmq.cloudamqp.com/gzzpbcle"));
+            services.AddScoped<Plain.RabbitMQ.IPublisher>(x => new Publisher(x.GetService<IConnectionProvider>(),
+                "honk_exchange",
+                ExchangeType.Topic));
+
             return services;
         }
     }

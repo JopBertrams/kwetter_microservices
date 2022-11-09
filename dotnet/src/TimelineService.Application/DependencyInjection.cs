@@ -8,6 +8,7 @@ using System.Security.Claims;
 using MediatR;
 using StackExchange.Redis;
 using TimelineService.Domain;
+using TimelineService.Application.Services;
 
 namespace TimelineService.Application
 {
@@ -36,6 +37,7 @@ namespace TimelineService.Application
             services.AddSingleton<IConnectionMultiplexer>(opt =>
                 ConnectionMultiplexer.Connect(configuration.GetConnectionString("RedisConnection")));
             services.AddScoped<ITimelineRepositoy, TimelineRepository>();
+            services.AddHostedService<HonkDataCollector>();
 
             return services;
         }
