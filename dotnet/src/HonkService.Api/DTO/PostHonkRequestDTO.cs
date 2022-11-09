@@ -1,7 +1,7 @@
 ﻿namespace HonkService.Api.DTO
 {
     public record PostHonkRequestDTO(
-        string UserId,
+        string Username,
         string Message
     );
 }

@@ -3,6 +3,7 @@ using System;
 using HonkService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HonkService.Infrastructure.Migrations
 {
     [DbContext(typeof(HonkContext))]
-    partial class HonkContextModelSnapshot : ModelSnapshot
+    [Migration("20221109215510_IdToUsername")]
+    partial class IdToUsername
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

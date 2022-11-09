@@ -2,7 +2,7 @@
 {
     public record HonkResult(
         Guid Id,
-        string UserId,
+        string Username,
         string Message,
         DateTime CreatedAt
     );

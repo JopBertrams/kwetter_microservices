@@ -2,7 +2,7 @@
 {
     public record HonkResponseDTO(
         Guid Id,
-        string UserId,
+        string Username,
         string Message,
         DateTime CreatedAt
     );

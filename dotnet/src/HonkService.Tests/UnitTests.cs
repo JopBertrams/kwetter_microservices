@@ -30,10 +30,10 @@ namespace HonkService.Tests
             var postHonkHandler = new PostHonkCommandHandler(honkRepositoryMock.Object);
             var honk = new HonkEntity
             {
-                UserId = "UniqueTestUserId",
+                Username = "UniqueTestUserId",
                 Message = "This honk is posted from the unit test!"
             };
-            var command = new PostHonkCommand(honk.UserId, honk.Message);
+            var command = new PostHonkCommand(honk.Username, honk.Message);
 
             // Act
             var result = await postHonkHandler.Handle(command, CancellationToken.None);
@@ -42,7 +42,7 @@ namespace HonkService.Tests
             // Result
             Assert.NotNull(result);
             Assert.IsInstanceOf<Guid>(result.Id);
-            Assert.That(result.UserId, Is.SameAs(honk.UserId));
+            Assert.That(result.Username, Is.SameAs(honk.Username));
             Assert.That(result.Message, Is.SameAs(honk.Message));
             Assert.That(DateTimeComparison.EqualsUptoSeconds(result.CreatedAt, DateTime.UtcNow), Is.True);
         }
@@ -76,7 +76,7 @@ namespace HonkService.Tests
             var honk = new HonkEntity
             {
                 Id = Guid.NewGuid(),
-                UserId = "UniqueTestUserId",
+                Username = "UniqueTestUserId",
                 Message = "This honk is posted from the unit test!",
                 CreatedAt = new DateTime(2022, 07, 20)
             };
@@ -93,7 +93,7 @@ namespace HonkService.Tests
             // Result
             Assert.NotNull(result);
             Assert.IsInstanceOf<Guid>(result.Id);
-            Assert.That(result.UserId, Is.SameAs(honk.UserId));
+            Assert.That(result.Username, Is.SameAs(honk.Username));
             Assert.That(result.Message, Is.SameAs(honk.Message));
             Assert.That(result.CreatedAt, Is.EqualTo(new DateTime(2022, 07, 20)));
         }

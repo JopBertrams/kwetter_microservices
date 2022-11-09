@@ -69,14 +69,14 @@ namespace HonkService.Tests
                 new HonkEntity
                 {
                     Id = Guid.Parse("3743d0a5-195a-47b6-a81a-50bc7a64c9d8"),
-                    UserId = "UniqueTestUserId",
+                    Username = "UniqueTestUserId",
                     Message = "TestHonk1",
                     CreatedAt = DateTime.UtcNow
                 },
                 new HonkEntity
                 {
                     Id = Guid.Parse("86c2553c-a45f-4910-8d0d-11bf24ea93aa"),
-                    UserId = "UniqueTestUserId",
+                    Username = "UniqueTestUserId",
                     Message = "TestHonk2",
                     CreatedAt = DateTime.UtcNow
                 }
@@ -233,7 +233,7 @@ namespace HonkService.Tests
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.IsInstanceOf<Guid>(honk.Id);
-            Assert.That(honk.UserId, Is.EqualTo("UniqueUserId"));
+            Assert.That(honk.Username, Is.EqualTo("UniqueUserId"));
             Assert.That(honk.Message, Is.EqualTo("Test message..."));
             Assert.That(HonkExistsInDatabase("Test message..."), Is.True);
         }

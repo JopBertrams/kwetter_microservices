@@ -4,7 +4,7 @@
 
 namespace HonkService.Infrastructure.Migrations
 {
-    public partial class UsernameRenamed : Migration
+    public partial class IdToUsername : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,9 +17,9 @@ namespace HonkService.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "UserId",
+                name: "Username",
                 table: "Honks",
-                newName: "Username");
+                newName: "UserId");
         }
     }
 }

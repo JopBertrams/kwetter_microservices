@@ -36,7 +36,7 @@ namespace TimelineService.Application
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             services.AddSingleton<IConnectionMultiplexer>(opt =>
                 ConnectionMultiplexer.Connect(configuration.GetConnectionString("RedisConnection")));
-            services.AddScoped<ITimelineRepositoy, TimelineRepository>();
+            services.AddSingleton<ITimelineRepositoy, TimelineRepository>();
             services.AddHostedService<HonkDataCollector>();
 
             return services;

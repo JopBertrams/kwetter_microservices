@@ -3,5 +3,5 @@ using MediatR;
 
 namespace HonkService.Application.Commands
 {
-    public record PostHonkCommand(string UserId, string Message) : IRequest<HonkResult>;
+    public record PostHonkCommand(string Username, string Message) : IRequest<HonkResult>;
 }

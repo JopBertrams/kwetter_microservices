@@ -10,7 +10,7 @@ namespace HonkService.Domain.Entities
         public Guid Id { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string Username { get; set; }
 
         [Required]
         public string Message { get; set; }
