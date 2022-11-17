@@ -7,6 +7,7 @@ jobs:
     steps:
       - checkout
       - run: |
+          export PATH="$PATH:/root/.dotnet/tools"
           apt-get update
           apt-get install curl
           apt-get install unzip
