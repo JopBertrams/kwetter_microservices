@@ -6,6 +6,10 @@ jobs:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
+      - run: |
+          apt-get update
+          apt-get install curl
+          apt-get install unzip
       - sonarcloud/scan
   test:
     docker:
