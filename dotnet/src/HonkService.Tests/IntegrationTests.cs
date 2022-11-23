@@ -210,35 +210,6 @@ namespace HonkService.Tests
         }
 
         [Test]
-        public async Task PostHonk_Success()
-        {
-            // Arrange
-            var accessToken = await GetAccessToken();
-
-            // Act
-            var request = new HttpRequestMessage(HttpMethod.Post, "api/honk");
-            request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(new
-            {
-                UserId = "UniqueUserId",
-                Message = "Test message..."
-            }), Encoding.UTF8, "application/json");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var response = await httpClient.SendAsync(request);
-            var responseBody = await response.Content.ReadAsStreamAsync();
-            var streamReader = new StreamReader(responseBody);
-            var jsonReader = new JsonTextReader(streamReader);
-            JsonSerializer serializer = new JsonSerializer();
-            var honk = serializer.Deserialize<HonkResponseDTO>(jsonReader);
-
-            // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.IsInstanceOf<Guid>(honk.Id);
-            Assert.That(honk.Username, Is.EqualTo("UniqueUserId"));
-            Assert.That(honk.Message, Is.EqualTo("Test message..."));
-            Assert.That(HonkExistsInDatabase("Test message..."), Is.True);
-        }
-
-        [Test]
         public async Task DeleteHonk_HonkDoesNotExist()
         {
             // Arrange
