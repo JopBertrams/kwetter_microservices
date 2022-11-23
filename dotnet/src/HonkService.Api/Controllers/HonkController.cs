@@ -37,9 +37,9 @@ namespace HonkService.Api.Controllers
 
                 return Ok(responseDTO);
             }
-            catch
+            catch (Exception ex)
             {
-                return NotFound($"Honk with id '{honkId}' not found");
+                return BadRequest(ex.Message);
             }
         }       
 
@@ -77,9 +77,9 @@ namespace HonkService.Api.Controllers
 
                 return Ok(honkResult);             
             }
-            catch
+            catch(Exception ex)
             {
-                return NotFound($"Honk with id '{honkId}' not found");
+                return BadRequest(ex.Message);
             }
 
         }

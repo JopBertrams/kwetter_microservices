@@ -4,9 +4,14 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 
+ENV ASPNETCORE_ENVIRONMENT=Development
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["HonkService.Api/HonkService.Api.csproj", "HonkService.Api/"]
+COPY ["HonkService.Application/HonkService.Application.csproj", "HonkService.Application/"]
+COPY ["HonkService.Domain/HonkService.Domain.csproj", "HonkService.Domain/"]
+COPY ["HonkService.Infrastructure/HonkService.Infrastructure.csproj", "HonkService.Infrastructure/"]
 RUN dotnet restore "HonkService.Api/HonkService.Api.csproj"
 COPY . .
 WORKDIR "/src/HonkService.Api"
