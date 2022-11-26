@@ -23,6 +23,7 @@ jobs:
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
+          context: dotnet/src/HonkService.Api/
           push: true
           tags: |
             ghcr.io/username/package:latest
@@ -38,8 +39,8 @@ jobs:
       - name: Set the Kubernetes context
         uses: azure/k8s-set-context@v2
         with:
-          method: service-account
-          k8s-url: <server-url>
+          method: service-account 
+          k8s-url: https://144.24.180.150:6443
           k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
 
       - name: Checkout source code
