@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: kwetter_microservices
+          image: ghcr.io/username/package:latest
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: github-container-registry

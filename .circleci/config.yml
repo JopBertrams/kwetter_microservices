@@ -1,0 +1,43 @@
+version: 2.1
+
+jobs:
+  analyse:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+      - run: |
+          apt-get update
+          apt-get install curl
+          apt-get install unzip
+      - sonarcloud/scan
+  test:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+      - run: |
+          cd dotnet/src/HonkService.Tests
+          dotnet test HonkService.Tests.csproj
+  build:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+      - run: |
+          cd dotnet/src/HonkService.Api
+          dotnet build -c Release
+
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.1.0
+
+workflows:
+  test_and_build:
+    jobs:
+      - analyse
+      - test:
+         requires:
+           - analyse
+      - build:
+          requires:
+            - test
