@@ -38,8 +38,8 @@ jobs:
       - name: Set the Kubernetes context
         uses: azure/k8s-set-context@v2
         with:
-          method: service-account
-          k8s-url: <server-url>
+          method: service-account 
+          k8s-url: https://144.24.180.150:6443
           k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
 
       - name: Checkout source code
