@@ -26,7 +26,7 @@ jobs:
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./dotnet/src/HonkService.Api/
+          context: ./dotnet/src/
           file: ./dotnet/src/HonkService.Api/Dockerfile
           push: true
           tags: |
