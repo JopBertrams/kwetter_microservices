@@ -19,11 +19,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Checkout source code
+        uses: actions/checkout@v3
 
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
           context: ./dotnet/src/HonkService.Api/
+          file: ./dotnet/src/HonkService.Api/Dockerfile
           push: true
           tags: |
             ghcr.io/username/package:latest
