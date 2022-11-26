@@ -15,8 +15,8 @@ spec:
         app: api
     spec:
       containers:
-        - name: kwetter_microservices
-          image: ghcr.io/username/package:latest
+        - name: honkservice
+          image: ghcr.io/jopbertrams/honkservice:latest
           ports:
           - containerPort: 80
       imagePullSecrets:
