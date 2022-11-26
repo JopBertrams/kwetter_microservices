@@ -32,8 +32,8 @@ jobs:
           file: ./dotnet/src/HonkService.Api/Dockerfile
           push: true
           tags: |
-            ghcr.io/username/package:latest
-            ghcr.io/username/package:${{ github.sha }}
+            ghcr.io/jopbertrams/honkservice:latest
+            ghcr.io/jopbertrams/honkservice:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=
           
@@ -61,4 +61,4 @@ jobs:
             kubernetes/ingress.yaml
             kubernetes/service.yaml
           images: |
-            ghcr.io/username/package:${{ github.sha }}
+            ghcr.io/jopbertrams/honkservice:${{ github.sha }}
