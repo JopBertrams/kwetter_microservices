@@ -9,6 +9,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -19,15 +21,19 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Checkout source code
+        uses: actions/checkout@v3
 
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
-          context: dotnet/src/HonkService.Api/
+          context: ./dotnet/src/
+          file: ./dotnet/src/HonkService.Api/Dockerfile
           push: true
           tags: |
-            ghcr.io/username/package:latest
-            ghcr.io/username/package:${{ github.sha }}
+            ghcr.io/jopbertrams/honkservice:latest
+            ghcr.io/jopbertrams/honkservice:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=
           
@@ -55,4 +61,4 @@ jobs:
             kubernetes/ingress.yaml
             kubernetes/service.yaml
           images: |
-            ghcr.io/username/package:${{ github.sha }}
+            ghcr.io/jopbertrams/honkservice:${{ github.sha }}
