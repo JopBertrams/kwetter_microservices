@@ -30,6 +30,7 @@ jobs:
         with:
           context: ./dotnet/src/
           file: ./dotnet/src/HonkService.Api/Dockerfile
+          platforms: linux/arm64
           push: true
           tags: |
             ghcr.io/jopbertrams/honkservice:latest
